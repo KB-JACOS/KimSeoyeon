@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Solution {
+class programmers_92344 {
     static int[][] newArr;
     public int solution(int[][] board, int[][] skill) {
         // skill을 다 담은 배열
