@@ -19,21 +19,15 @@ public class BOJ_7576 {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < m; j++) {
                 int num = Integer.parseInt(st.nextToken());
-                if(num == 1) q.add(new int[]{i, j, 0});
+                if (num == 1) {
+                    q.add(new int[]{i, j, 0});
+                }
                 arr[i][j] = num;
             }
         }
 
-        // 이미 다 익었다면
-        if (q.size() == n*m) {
-            System.out.println(0);
-            System.exit(0);
-        }
-
-//        System.out.println(Arrays.deepToString(arr));
-
         int max = Integer.MIN_VALUE;
-        while(!q.isEmpty()) {
+        while (!q.isEmpty()) {
             int[] cur = q.poll();
             int r = cur[0], c = cur[1], depth = cur[2];
 
@@ -42,21 +36,23 @@ public class BOJ_7576 {
                 int nc = c + dc[i];
 
                 // 범위 나가면 무시
-                if(nr < 0 || nr >= n || nc < 0 || nc >= m) continue;
+                if (nr < 0 || nr >= n || nc < 0 || nc >= m) {
+                    continue;
+                }
                 // 이미 익었다면 건너 뜀
-                if(arr[nr][nc] == 1) continue;
+                if (arr[nr][nc] == 1) {
+                    continue;
+                }
 
-                if(arr[nr][nc] == 0) {
-                    q.add(new int[] {nr, nc, depth+1});
+                if (arr[nr][nc] == 0) {
+                    q.add(new int[]{nr, nc, depth + 1});
                     arr[nr][nc] = 1; // 방문 처리
                     max = depth + 1;
                 }
             }
         }
 
-//        System.out.println(Arrays.deepToString(arr));
-
-        for(int[] row : arr) {
+        for (int[] row : arr) {
             for (int col : row) {
                 if (col == 0) {
                     System.out.println(-1);
