@@ -29,15 +29,6 @@ public class BOJ_11404 {
             list.add(new ArrayList<>());
         }
 
-        int[][] answer = new int[n+1][n+1];
-        for (int i = 0; i <= n; i++) {
-            Arrays.fill(answer[i], Integer.MAX_VALUE);
-            answer[i][i] = 0;
-        }
-//        for(int[] row : answer) {
-//            Arrays.fill(row, Integer.MAX_VALUE);
-//        }
-
         StringTokenizer st;
         for(int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
@@ -47,33 +38,13 @@ public class BOJ_11404 {
             int c = Integer.parseInt(st.nextToken());
 
             list.get(a).add(new Node(b, c));
-            answer[a][b] = Math.min(answer[a][b], c);
         }
 
-        // 플로이드-워셜
-        for (int k = 1; k <= n; k++) { // 경유 도시
-            for (int i = 1; i <= n; i++) { // 출발 도시
-                for (int j = 1; j <= n; j++) { // 도착 도시
-                    if (answer[i][j] > answer[i][k] + answer[k][j]) {
-                        answer[i][j] = answer[i][k] + answer[k][j];
-                    }
-                }
-            }
+        int[][] answer = new int[n+1][n+1];
+        for(int[] row : answer) {
+            Arrays.fill(row, Integer.MAX_VALUE);
         }
 
-        // 다익스트라
-//        dijkstra(n, answer, list);
-
-        // 출력
-        for(int i = 1; i < n+1; i++) {
-            for(int j = 1; j < n+1; j++) {
-                System.out.print((answer[i][j] == Integer.MAX_VALUE ? 0 : answer[i][j]) + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    private static void dijkstra(int n, int[][] answer, List<List<Node>> list) {
         // 모든 도시에서 출발해봐야 함
         for(int start = 1; start <= n; start++) {
             Queue<Node> q = new PriorityQueue<>();
@@ -96,6 +67,15 @@ public class BOJ_11404 {
                     }
                 }
             }
+        }
+
+
+        // 출력
+        for(int i = 1; i < n+1; i++) {
+            for(int j = 1; j < n+1; j++) {
+                System.out.print((answer[i][j] == Integer.MAX_VALUE ? 0 : answer[i][j]) + " ");
+            }
+            System.out.println();
         }
     }
 }
