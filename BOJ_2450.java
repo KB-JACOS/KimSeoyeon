@@ -15,12 +15,8 @@ public class BOJ_2450 {
 
         st = new StringTokenizer(br.readLine());
         for(int i = 0; i < n; i++) {
-            int num = Integer.parseInt(st.nextToken());
-            if(num == 1) numCnt[1]++;
-            else if(num == 2) numCnt[2]++;
-            else numCnt[3]++;
-
-            arr[i] = num;
+            arr[i] = Integer.parseInt(st.nextToken());
+            numCnt[arr[i]]++;
         }
 
         // 조합 만들기 - 6가지 경우
@@ -30,16 +26,10 @@ public class BOJ_2450 {
 
             int[] combi = new int[n];
 
-            for(int j = 0; j < numCnt[check[0]]; j++) {
-                combi[j] = check[0];
-            }
-
-            for(int j = numCnt[check[0]]; j < numCnt[check[0]] + numCnt[check[1]]; j++) {
-                combi[j] = check[1];
-            }
-
-            for(int j = numCnt[check[0]] + numCnt[check[1]]; j < n; j++) {
-                combi[j] = check[2];
+            int idx = 0;
+            for (int num : check) {
+                Arrays.fill(combi, idx, idx + numCnt[num], num);
+                idx += numCnt[num];
             }
 
 //            System.out.println("combi = " + Arrays.toString(combi));
